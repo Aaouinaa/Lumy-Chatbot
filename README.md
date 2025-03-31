@@ -1,2 +1,154 @@
-# Lumy-Chatbot
+# Lumy Kundenservice RAG Chatbot
+
 Ein Retrieval-Augmented Generation (RAG) Chatbot für Kundenservice mit lokaler LLM-Integration, Pinecone-Vektordatenbank und intelligenter Intent- und Sentiment-Analyse.
+
+## Überblick
+
+Dieser Chatbot wurde entwickelt, um:
+- Kundenanfragen intelligent zu beantworten durch Zugriff auf FAQ-Dokumente
+- Intent und Stimmung in Kundenanfragen zu erkennen und entsprechend zu reagieren
+- Benutzerfreundliche Schnittstelle für Kunden bereitzustellen
+- Offline-fähig zu arbeiten mit lokaler Protokollierung, falls keine Datenbankverbindung besteht
+
+## Hauptfunktionen
+
+- **RAG-Architektur**: Kombiniert Retrieval (FAQ-Wissensbasis) mit generativen Antworten
+- **Intent- und Sentiment-Analyse**: Erkennt Absicht und Stimmung in Benutzeranfragen
+- **Gedankengang-Visualisierung**: Zeigt den Reasoning-Prozess des LLMs für Transparenz
+- **Offline-Unterstützung**: Funktioniert auch ohne Internetverbindung durch lokale Speicherung
+- **Fehlertoleranz**: Graceful degradation bei Netzwerkproblemen
+
+## Installation
+
+```bash
+# Repository klonen
+git clone https://github.com/IHR_USERNAME/Lumy-Chatbot.git
+cd Lumy-Chatbot
+
+# Python-Umgebung einrichten
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# oder .venv\Scripts\activate  # Windows
+
+# Abhängigkeiten installieren
+pip install -r requirements.txt
+
+# .env-Datei konfigurieren
+cp .env.example .env
+# Bearbeiten Sie die .env-Datei mit Ihren API-Keys
+```
+
+## Umgebungsvariablen
+
+```
+# Pinecone
+PINECONE_API_KEY=ihr_pinecone_api_key
+PINECONE_ENV=us-east1-gcp
+
+# Supabase (optional)
+SUPABASE_URL=https://ihre-supabase-url.supabase.co
+SUPABASE_KEY=ihr_supabase_key
+```
+
+## Komponenten
+
+- **streamlit_app.py**: Chat-Interface mit Streamlit
+- **pinecone_rag.py**: RAG-Pipeline mit Pinecone-Integration
+- **pinecone_rag_multi.py**: Erweiterte Version mit Multi-Namespace-Unterstützung
+- **main.py**: Startpunkt der Anwendung
+- **prepare_pinecone_index.py**: Skript zum Erstellen und Befüllen des Pinecone-Index
+
+## Verwendung
+
+```bash
+# Lokales LLM starten (über Ollama oder anderen Dienst)
+ollama run llama3:8b-instruct
+
+# Pinecone-Index vorbereiten (falls noch nicht geschehen)
+python prepare_pinecone_index.py
+
+# Anwendung starten
+python main.py
+
+# Oder direkt Streamlit starten
+streamlit run streamlit_app.py
+```
+
+## Technische Details
+
+### LLM-Integration
+
+Die Anwendung verwendet standardmäßig einen lokalen LLM, der über einen HTTP-Endpunkt angesprochen wird. Der Standardendpunkt ist `http://localhost:1234/v1/chat/completions`.
+
+```python
+# In pinecone_rag.py
+class LocalLLM(LLM):
+    model_name: str = "llama3:8b-instruct"
+    temperature: float = 0.3
+    max_tokens: int = 2048
+    endpoint: str = "http://localhost:1234/v1/chat/completions"
+```
+
+### RAG-Architektur
+
+Die Retrieval-Augmented Generation (RAG) Pipeline verwendet folgende Komponenten:
+
+1. **Embedding-Modell**: SentenceTransformers (all-MiniLM-L6-v2)
+2. **Vektordatenbank**: Pinecone
+3. **Chat-Modell**: Lokales LLM (standardmäßig Llama 3)
+4. **Prompt-Template**: Strukturiertes Format mit System-Anweisungen, Kontext und Benutzeranfrage
+
+### Offline-Unterstützung
+
+Der Chatbot speichert Konversationen lokal und versucht, sie mit Supabase zu synchronisieren, wenn eine Verbindung besteht. Bei Netzwerkfehlern bleiben die lokalen Daten erhalten.
+
+## Fehlerbehebung
+
+### LangChain Deprecation Warnings
+
+Die Anwendung verwendet einige veraltete LangChain-Importe, die Warnungen auslösen. Diese haben keinen Einfluss auf die Funktionalität, können aber aktualisiert werden:
+
+```python
+# Alt:
+from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain.vectorstores import Pinecone
+
+# Neu:
+from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain_pinecone import Pinecone
+```
+
+### Netzwerkfehler
+
+Fehler wie `[Errno 11001] getaddrinfo failed` weisen auf Netzwerkprobleme hin. Prüfen Sie:
+- Internetverbindung
+- Firewalls oder VPN-Einstellungen
+- Korrekte API-Keys und Endpunkte in der `.env`-Datei
+
+Die Anwendung bleibt trotz dieser Fehler funktional, da sie lokale Speicherung verwendet.
+
+### Torch-Fehlermeldungen
+
+Warnungen bezüglich `torch._classes` und `'__path__._path'` sind bekannte Probleme mit Streamlit und PyTorch. Sie haben keinen Einfluss auf die Funktionalität der Anwendung.
+
+## Weiterentwicklung
+
+### Integration neuer FAQs
+
+Neue FAQs können über das Skript `prepare_pinecone_index.py` in den Pinecone-Index aufgenommen werden:
+
+```python
+# Beispiel für das Hinzufügen neuer FAQs
+new_faqs = [
+    {"Q": "Wie kann ich mein Passwort zurücksetzen?", 
+     "A": "Sie können Ihr Passwort über die 'Passwort vergessen'-Funktion auf der Login-Seite zurücksetzen..."}
+]
+```
+
+### Anpassung des Prompt-Templates
+
+Das Prompt-Template kann in `pinecone_rag.py` angepasst werden, um die Persönlichkeit und Antwortstruktur des Chatbots zu ändern.
+
+## Lizenz
+
+Dieses Projekt steht unter der MIT-Lizenz. Siehe LICENSE-Datei für Details. 

@@ -1,0 +1,52 @@
+# Kern-Dependencies
+langchain==0.1.6
+langchain-community==0.0.16
+langchain-core==0.1.18
+langchain-text-splitters==0.0.1
+langchain-pinecone==0.1.2
+langchain-huggingface==0.0.1  # Für aktualisierte HuggingFace-Embeddings
+
+# LLM und Embeddings
+sentence-transformers==2.2.2
+transformers==4.35.2
+tokenizers==0.15.0
+
+# Vektordatenbank
+pinecone-client==2.2.4
+pinecone==0.8.0
+faiss-cpu==1.10.0  # Alternativ für lokale Vektorspeicherung
+
+# UI
+streamlit==1.30.0
+streamlit-chat==0.1.1
+
+# Datenverarbeitung
+pandas==2.0.3
+numpy==1.24.4
+pydantic==1.10.13  # < 2.0 für Kompatibilität mit älteren Paketen
+pypdf==3.17.4
+
+# Datenbank und Speicherung
+supabase==2.3.0
+apscheduler==3.10.4
+sqlalchemy==2.0.23
+
+# Netzwerk und HTTP
+requests==2.31.0
+httpx==0.25.2  # Für asynchrone HTTP-Requests
+aiohttp==3.9.3  # Für asynchrone HTTP-Requests
+tenacity==8.2.3  # Für Retry-Logik bei Netzwerkfehlern
+
+# Umgebung und Konfiguration
+python-dotenv==1.0.0
+tqdm==4.66.1
+
+# Fehlerbehandlung und Logging
+rich==13.7.0  # Verbesserte Konsolen-Ausgabe
+loguru==0.7.2  # Verbesserte Logging-Funktionalität
+
+# Entwicklung und Testing
+pytest==7.4.3
+black==23.11.0
+flake8==6.1.0
+mypy==1.7.1
