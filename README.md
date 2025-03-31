@@ -61,7 +61,7 @@ SUPABASE_KEY=ihr_supabase_key
 ## Verwendung
 
 ```bash
-# Lokales LLM starten (über Ollama oder anderen Dienst)
+# Lokales LLM starten (über Ollama oder LM Studio)
 ollama run llama3:8b-instruct
 
 # Pinecone-Index vorbereiten (falls noch nicht geschehen)
