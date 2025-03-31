@@ -102,34 +102,6 @@ Die Retrieval-Augmented Generation (RAG) Pipeline verwendet folgende Komponenten
 
 Der Chatbot speichert Konversationen lokal und versucht, sie mit Supabase zu synchronisieren, wenn eine Verbindung besteht. Bei Netzwerkfehlern bleiben die lokalen Daten erhalten.
 
-## Fehlerbehebung
-
-### LangChain Deprecation Warnings
-
-Die Anwendung verwendet einige veraltete LangChain-Importe, die Warnungen auslösen. Diese haben keinen Einfluss auf die Funktionalität, können aber aktualisiert werden:
-
-```python
-# Alt:
-from langchain.embeddings import SentenceTransformerEmbeddings
-from langchain.vectorstores import Pinecone
-
-# Neu:
-from langchain_community.embeddings import SentenceTransformerEmbeddings
-from langchain_pinecone import Pinecone
-```
-
-### Netzwerkfehler
-
-Fehler wie `[Errno 11001] getaddrinfo failed` weisen auf Netzwerkprobleme hin. Prüfen Sie:
-- Internetverbindung
-- Firewalls oder VPN-Einstellungen
-- Korrekte API-Keys und Endpunkte in der `.env`-Datei
-
-Die Anwendung bleibt trotz dieser Fehler funktional, da sie lokale Speicherung verwendet.
-
-### Torch-Fehlermeldungen
-
-Warnungen bezüglich `torch._classes` und `'__path__._path'` sind bekannte Probleme mit Streamlit und PyTorch. Sie haben keinen Einfluss auf die Funktionalität der Anwendung.
 
 ## Weiterentwicklung
 
