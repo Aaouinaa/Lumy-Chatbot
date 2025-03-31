@@ -2,6 +2,13 @@
 
 Ein Retrieval-Augmented Generation (RAG) Chatbot für Kundenservice mit lokaler LLM-Integration, Pinecone-Vektordatenbank und intelligenter Intent- und Sentiment-Analyse.
 
+## Mitwirkende
+
+- **Motseki Khoarai**  – [GitHub-Profil](https://github.com/maxmustermann](https://github.com/Lameshmo)
+- **Gina Weng**        – [GitHub-Profil](https://github.com/erikamusterfrau](https://github.com/ginaweng)
+- **Maxwell Cranston** – [GitHub-Profil](https://github.com/johndoe](https://github.com/RehlytC)
+
+
 ## Überblick
 
 Dieser Chatbot wurde entwickelt, um:
