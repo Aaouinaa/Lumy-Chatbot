@@ -19,7 +19,7 @@ Dieser Chatbot wurde entwickelt, um:
 
   ## FAQ
 
-Die FAQ basiert auf einem Datensatz, der auf [huggingface](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) zur Verfügung gestellt wurde:
+Die FAQ basiert auf einem Datensatz, der auf [huggingface](https://huggingface.co/datasets/bitext/Bitext-customer-support-llm-chatbot-training-dataset) zur Verfügung gestellt wurde:
 - 26.8k Zeilen
 - 5 Spalten
 - 27 intents
