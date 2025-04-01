@@ -4,9 +4,9 @@ Ein Retrieval-Augmented Generation (RAG) Chatbot für Kundenservice mit lokaler 
 
 ## Mitwirkende
 
-- **Motseki Khoarai**  – [GitHub-Profil](https://github.com/maxmustermann](https://github.com/Lameshmo)
-- **Gina Weng**        – [GitHub-Profil](https://github.com/erikamusterfrau](https://github.com/ginaweng)
-- **Maxwell Cranston** – [GitHub-Profil](https://github.com/johndoe](https://github.com/RehlytC)
+- **Motseki Khoarai**  – https://github.com/maxmustermann](https://github.com/Lameshmo
+- **Gina Weng**        – https://github.com/erikamusterfrau](https://github.com/ginaweng
+- **Maxwell Cranston** – https://github.com/johndoe](https://github.com/RehlytC
 
 
 ## Überblick
@@ -16,6 +16,13 @@ Dieser Chatbot wurde entwickelt, um:
 - Intent und Stimmung in Kundenanfragen zu erkennen und entsprechend zu reagieren
 - Benutzerfreundliche Schnittstelle für Kunden bereitzustellen
 - Offline-fähig zu arbeiten mit lokaler Protokollierung, falls keine Datenbankverbindung besteht
+
+  ## FAQ
+
+Die FAQ basiert auf einem Datensatz, der auf [huggingface](https://www.kaggle.com/datasets/blastchar/telco-customer-churn) zur Verfügung gestellt wurde:
+- 26.8k Zeilen
+- 5 Spalten
+- 27 intents
 
 ## Hauptfunktionen
 
